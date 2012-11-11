@@ -82,6 +82,10 @@
 #define LIST_H
 
 
+#include <stdint.h>
+#include <stddef.h>
+#include <assert.h>
+
 /******************************************************************************
 *
 *   List definition macros
@@ -307,7 +311,7 @@ private:
 
     TList (size_t offset);
     TLink<T> * GetLinkFromNode (const T * node) const;
-    template<class T, size_t offset> friend class TListDeclare;
+    template<class TT, size_t offset> friend class TListDeclare;
 
     // Hide copy-constructor and assignment operator
     TList (const TList &);
@@ -421,7 +425,7 @@ void TList<T>::InsertTail (T * node) {
 //=============================================================================
 template<class T>
 void TList<T>::InsertBefore (T * node, T * before) {
-    ASSERT(!((size_t) node & 1));
+    assert(!((size_t) node & 1));
     GetLinkFromNode(node)->InsertBefore(
         node,
         before ? GetLinkFromNode(before) : &m_link
@@ -431,7 +435,7 @@ void TList<T>::InsertBefore (T * node, T * before) {
 //=============================================================================
 template<class T>
 void TList<T>::InsertAfter (T * node, T * after) {
-    ASSERT(!((size_t) node & 1));
+    assert(!((size_t) node & 1));
     GetLinkFromNode(node)->InsertAfter(
         node,
         after ? GetLinkFromNode(after) : &m_link
@@ -441,7 +445,7 @@ void TList<T>::InsertAfter (T * node, T * after) {
 //=============================================================================
 template<class T>
 TLink<T> * TList<T>::GetLinkFromNode (const T * node) const {
-    ASSERT(m_offset != (size_t) -1);
+    assert(m_offset != (size_t) -1);
     return (TLink<T> *) ((size_t) node + m_offset);
 }
 
