@@ -29,11 +29,11 @@ struct Employee : public android::RefBase {
     }
     
     void show() const {
-        LOGFL("name:%s salary:%d", mName, mSalary);
+        LOGW("name:%s salary:%d", mName, mSalary);
     }
 
     virtual ~Employee() {
-        LOGFL("--> ~Employee(), name:%s", mName);
+        LOGW("--> ~Employee(), name:%s", mName);
     }
 };
 
